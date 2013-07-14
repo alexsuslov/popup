@@ -1,4 +1,7 @@
 #popup {
+  z-index: 999;
+  display: block;
+  position: fixed;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   -khtml-border-radius: 4px;
@@ -29,7 +32,3 @@
 
 .popup-bottom-left, .popup-bottom-right {
   bottom: 0; }
-
-.popup-bottom-left, .popup-bottom-right, .popup-top-left, .popup-top-right {
-  display: block;
-  position: absolute; }

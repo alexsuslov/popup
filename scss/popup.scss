@@ -1,5 +1,8 @@
 @import "mixin";
 #popup{
+  z-index: 999;
+  display: block;
+  position: fixed;
   @include corner(4px);
   @include shadow(#bfbfbf);
   #control{
@@ -19,13 +22,5 @@
 .popup-bottom-left, .popup-top-left{ left: 16px;}
 .popup-bottom-right, .popup-top-right{ right: 16px;}
 
-.popup-top-left, .popup-top-right{
-  top: 0;
-}
-.popup-bottom-left, .popup-bottom-right{
-  bottom: 0;
-}
-.popup-bottom-left, .popup-bottom-right, .popup-top-left, .popup-top-right{
-  display: block;
-  position: absolute;
-}
+.popup-top-left, .popup-top-right{  top: 0;}
+.popup-bottom-left, .popup-bottom-right{  bottom: 0;}

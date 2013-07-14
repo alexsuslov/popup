@@ -35,7 +35,7 @@ class Popup
       ].join('')
   clean:->
     # 
-    # $(@elem).find.html ''
+    $(@elem).find('#workspace').html ''
 
   events: ->
     self = @

@@ -48,7 +48,9 @@ Popup = (function() {
     return $(this.elem).find('#workspace').html(['<iframe width=100% height="' + this.size[2] + '" frameborder=0 src="' + this.url + '">', '</iframe>'].join(''));
   };
 
-  Popup.prototype.clean = function() {};
+  Popup.prototype.clean = function() {
+    return $(this.elem).find('#workspace').html('');
+  };
 
   Popup.prototype.events = function() {
     var self;
