@@ -1,0 +1,10 @@
+<!DOCTYPE html><html lang="ru_RU"><head><title> Template test</title><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><!-- Bootstrap--><link href="css/bootstrap.min.css" rel="stylesheet" media="screen"><link href="css/popup.css" rel="stylesheet" media="screen"></head><body><div id="popup"></div><h1>test</h1><p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p> <script src="js/jquery.js"></script><script src="js/bootstrap.min.js"></script><script src="js/popup.js"></script><script>$(function() {
+  $('#popup').popup({
+    url:'http://www1.pennasol.su:8080/'
+    , background: '#5e87b0'
+    , background_image: 'linear-gradient( #6facd5,#497bae )'
+    , size:[720,32,480]
+    , position:'bottom-right'
+    , label:'Подбор масла'
+    });
+});</script></body></html>
