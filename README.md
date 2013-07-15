@@ -3,10 +3,12 @@
 ## Установка
 ### head
 В **head** добавить: 
+`````html
   <link href="css/popup.css" rel="stylesheet" media="screen">
+`````
 ### body
 В конец **body** добавить:
-<pre>
+`````html
   <div id="popup"></div>
   <script src="js/popup.js"></script>
   <script>
@@ -20,7 +22,7 @@
         });
       });
   </script>
-</pre>
+`````
 ## Настройка
 
 - background фон шапки
