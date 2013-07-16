@@ -15,12 +15,15 @@ class Popup
     $(@elem).css('width', @size[0])
     $(@elem).css('height', @size[1])
     $(@elem).html [
+
         "<div id='control'>"
         "<span id='label'>" +@label+ "</span>"
         "<span id='ctl'>" +@ctl[0]+ "</span>"
         '</div>'
         "<div id='workspace'></div>"
       ].join('')
+    $(@elem).after "<div id='fog'></div>"
+
     @elControl = $(@elem).find('#control')
     @elControl.css('height', @size[1])
     @elControl.css('background', @options.background) if @options?.background
@@ -33,9 +36,14 @@ class Popup
         '<iframe width=100% height="' + @size[2] + '" frameborder=0 src="' + @url + '">'
         '</iframe>'
       ].join('')
+    @fog = $('#fog') unless @fog
+    @fog.addClass('fog')
+    @fog.css 'height', window.innerHeight
   clean:->
-    # 
+    #
     $(@elem).find('#workspace').html ''
+    @fog.removeClass('fog')
+    @fog.css 'height', 0
 
   events: ->
     self = @
@@ -53,7 +61,7 @@ class Popup
           height: self.size[1],
         , 400, ->
           self.open = false;
-          self.clean();        
+          self.clean();
 
 
 
