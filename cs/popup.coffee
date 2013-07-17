@@ -6,12 +6,22 @@ class Popup
   label:'Popup'
   ctl:['^','X']
   size: [320,32,320]
+  checkStatus: false
+  status: true 
 
   constructor: (@options,@elem)->
     $(@elem).addClass('popup-' + @options?.position) if @options?.position
     @label = @options.label if @options?.label
     @size = @options.size if @options?.size
     @url = @options.url if @options?.url
+    
+    @checkStatus = @options.checkStatus if @options?.checkStatus
+    if @checkStatus
+      @checkOnLine()
+    else
+      @displayControl()
+
+  displayControl:()->
     $(@elem).css('width', @size[0])
     $(@elem).css('height', @size[1])
     $(@elem).html [
@@ -25,10 +35,24 @@ class Popup
     @elControl.css('height', @size[1])
     @elControl.css('background', @options.background) if @options?.background
     @events()
+  hideControl:()->
+    $(@elem).hide()
+
+  checkOnLine:()->
+    self = @
+    img = document.body.appendChild document.createElement "img"
+    img.onload = ->
+      self.status = true
+      self.displayControl()
+    img.onerror = ->
+      self.status = false
+      $(@elem).hide()
+    img.src = self.url + "/status.gif"
+
 
   display: ->
     self= @
-    $(@elem).attr('height', self.size[1] + self.size[2])
+    # $(@elem).attr('height', self.size[1] + self.size[2])
     $(@elem).find('#workspace').html [
         '<iframe width=100% height="' + @size[2] + '" frameborder=0 src="' + @url + '">'
         '</iframe>'
@@ -42,11 +66,13 @@ class Popup
     $(@elem).find('#control').on 'click', (e)->
       unless self.open
         $(self.elem).find('#ctl').html self.ctl[1]
+        self.display();
         $(self.elem).animate
           height: self.size[1] + self.size[2],
         , 400, ->
           self.open = true;
-          self.display();
+          
+          # self.display();
       else
         $(self.elem).find('#ctl').html self.ctl[0]
         $(self.elem).animate

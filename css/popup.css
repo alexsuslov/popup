@@ -2,6 +2,7 @@
   z-index: 999;
   display: block;
   position: fixed;
+  background-color: #bfbfbf;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   -khtml-border-radius: 4px;
