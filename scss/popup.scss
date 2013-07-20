@@ -3,11 +3,11 @@
   z-index: 999;
   display: block;
   position: fixed;
-  background-color: #bfbfbf;
+  background-color: #fff;
   @include corner(4px);
   @include shadow(#bfbfbf);
   #control{
-    padding: 4px 8px 0 8px; 
+    padding: 4px 8px 0 8px;
     text-shadow: 0 1px 0 #3e6790;
     font-size: 20px;
     line-height: 24px;
@@ -16,10 +16,10 @@
     #ctl{
       float: right;
     }
-  }   
+  }
 }
 
-// position  
+// position
 .popup-bottom-left, .popup-top-left{ left: 16px;}
 .popup-bottom-right, .popup-top-right{ right: 16px;}
 
