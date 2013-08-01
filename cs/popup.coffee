@@ -7,36 +7,35 @@ class Popup
   ctl:['^','X']
   size: [320,32,320]
   checkStatus: false
-  status: true 
+  status: true
+  open: false
 
   constructor: (@options,@elem)->
-    $(@elem).addClass('popup-' + @options?.position) if @options?.position
+    if @options?.position is 'right'
+      @
+    # $(@elem).addClass('popup-' + @options?.position) if @options?.position
     @label = @options.label if @options?.label
     @size = @options.size if @options?.size
     @url = @options.url if @options?.url
-    
+
     @checkStatus = @options.checkStatus if @options?.checkStatus
     if @checkStatus
       @checkOnLine()
     else
-      @displayControl()
+      @display()
 
-  displayControl:()->
-    $(@elem).css('width', @size[0])
-    $(@elem).css('height', @size[1])
+  display:()->
     $(@elem).html [
-        "<div id='control'>"
-        "<span id='label'>" +@label+ "</span>"
-        "<span id='ctl'>" +@ctl[0]+ "</span>"
-        '</div>'
-        "<div id='workspace'></div>"
+      "<h4>" + @label
+      "<span class='hide'></span>"
+      "</h4>"
+      "<div id='workspace'>"
+      '<iframe frameborder=0 src="' + @url + '">'
+      '</iframe>'
+      "</div>"
       ].join('')
-    @elControl = $(@elem).find('#control')
-    @elControl.css('height', @size[1])
-    @elControl.css('background', @options.background) if @options?.background
+    $(@elem).addClass 'rotate'
     @events()
-  hideControl:()->
-    $(@elem).hide()
 
   checkOnLine:()->
     self = @
@@ -49,37 +48,23 @@ class Popup
       $(@elem).hide()
     img.src = self.url + "/status.gif"
 
-
-  display: ->
-    self= @
-    # $(@elem).attr('height', self.size[1] + self.size[2])
-    $(@elem).find('#workspace').html [
-        '<iframe width=100% height="' + @size[2] + '" frameborder=0 src="' + @url + '">'
-        '</iframe>'
-      ].join('')
-  clean:->
-    # 
-    $(@elem).find('#workspace').html ''
-
   events: ->
     self = @
-    $(@elem).find('#control').on 'click', (e)->
-      unless self.open
-        $(self.elem).find('#ctl').html self.ctl[1]
-        self.display();
-        $(self.elem).animate
-          height: self.size[1] + self.size[2],
-        , 400, ->
-          self.open = true;
-          
-          # self.display();
-      else
-        $(self.elem).find('#ctl').html self.ctl[0]
-        $(self.elem).animate
-          height: self.size[1],
-        , 400, ->
-          self.open = false;
-          self.clean();        
+    h4= $(@elem).find('h4')
+    span = $(@elem).find('h4 span')
+    h4.on 'click',(e)->
+      if $(self.elem).hasClass('rotate')
+        $(self.elem).toggle 200, ->
+          $(self.elem).removeClass 'rotate'
+          $(self.elem).addClass 'normal'
+          $(self.elem).toggle 200, ->
+            span.show()
+      if $(self.elem).hasClass('normal')
+        $(self.elem).toggle 200, ->
+          $(self.elem).removeClass 'normal'
+          $(self.elem).addClass 'rotate'
+          $(self.elem).toggle 200, ->
+            span.hide()
 
 
 
