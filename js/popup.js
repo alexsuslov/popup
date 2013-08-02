@@ -43,9 +43,9 @@
     Popup.prototype.display = function() {
       var _ref;
       if ((_ref = this.position) === 'bottom-right' || _ref === 'bottom-left') {
-        $(this.elem).html(["<h4>" + this.label, "<span class='hide'></span>", "</h4>", "<div id='workspace'>", '<iframe frameborder=0 src="' + this.url + '">', '</iframe>', "</div>"].join(''));
+        $(this.elem).html(["<h4 class='btn'>", "<span class='hide'></span> &nbsp;", this.label + "</h4>", "<div id='workspace'>", '<iframe frameborder=0 src="' + this.url + '">', '</iframe>', "</div>"].join(''));
       } else {
-        $(this.elem).html(["<div id='workspace'>", '<iframe frameborder=0 src="' + this.url + '">', '</iframe>', "<h4>" + this.label, "<span class='hide'></span>", "</h4>", "</div>"].join(''));
+        $(this.elem).html(["<div id='workspace'>", '<iframe frameborder=0 src="' + this.url + '">', '</iframe>', "<h4 class='btn'>", "<span class='hide'></span> &nbsp;", this.label + "</h4>", "</div>"].join(''));
       }
       $(this.elem).addClass('popup-' + this.position);
       $(this.elem).show();
@@ -68,10 +68,11 @@
     };
 
     Popup.prototype.events = function() {
-      var duration, h4, self, span;
+      var duration, h4, iframe, self, span;
       self = this;
       h4 = $(this.elem).find('h4');
       span = $(this.elem).find('h4 span');
+      iframe = $(this.elem).find('iframe');
       duration = 400;
       return h4.on('click', function(e) {
         var options, _ref, _ref1;
@@ -89,12 +90,10 @@
           }
           return $(self.elem).animate(options, {
             done: function() {
-              span.show();
               return self.open = true;
             }
           });
         } else {
-          span.hide();
           if ((_ref1 = self.position) === 'bottom-right' || _ref1 === 'bottom-left') {
             options = {
               bottom: self.bottom

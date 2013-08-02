@@ -23,9 +23,9 @@ class Popup
   display:()->
     if @position in ['bottom-right',  'bottom-left']
       $(@elem).html [
-        "<h4>" + @label
-        "<span class='hide'></span>"
-        "</h4>"
+        "<h4 class='btn'>"
+        "<span class='hide'></span> &nbsp;"
+        @label+ "</h4>"
         "<div id='workspace'>"
         '<iframe frameborder=0 src="' + @url + '">'
         '</iframe>'
@@ -36,9 +36,9 @@ class Popup
         "<div id='workspace'>"
         '<iframe frameborder=0 src="' + @url + '">'
         '</iframe>'
-        "<h4>" + @label
-        "<span class='hide'></span>"
-        "</h4>"
+        "<h4 class='btn'>"
+        "<span class='hide'></span> &nbsp;"
+        @label + "</h4>"
         "</div>"
         ].join('')
     $(@elem).addClass 'popup-' + @position
@@ -60,6 +60,7 @@ class Popup
     self = @
     h4= $(@elem).find('h4')
     span = $(@elem).find('h4 span')
+    iframe = $(@elem).find('iframe')
     duration = 400
     h4.on 'click',(e)->
       unless self.open
@@ -73,10 +74,10 @@ class Popup
             top:8
 
         $(self.elem).animate options, done:()->
-            span.show()
+            # span.show()
             self.open = true
       else
-        span.hide()
+        # span.hide()
         if self.position in ['bottom-right',  'bottom-left']
           options =
             bottom:self.bottom

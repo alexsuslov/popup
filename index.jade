@@ -7,7 +7,7 @@ html(lang='ru_RU')
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     // Bootstrap
-    link(href='css/bootstrap.min.css', rel='stylesheet', media='screen')
+    //- link(href='css/bootstrap.min.css', rel='stylesheet', media='screen')
     link(href="css/bootstrap-glyphicons.css", rel="stylesheet")
     link(href='css/popup.css', rel='stylesheet', media='screen')
   body
@@ -20,7 +20,7 @@ html(lang='ru_RU')
       $(function() {
         $('#popup').popup({
           url:'http://www1.pennasol.su:8080/'
-          , position:'top-right'
+          , position:'bottom-right'
           , checkStatus:true
           , label:'Подбор масла'
           });
