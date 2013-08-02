@@ -12,20 +12,16 @@ html(lang='ru_RU')
     link(href='css/popup.css', rel='stylesheet', media='screen')
   body
     #popup
-      //- #control
-      //- #workspace
     h1 test
     mixin lorem
     script(src='js/jquery.js')
-    //- script(src='js/bootstrap.min.js')
     script(src='js/popup.js')
     script
       $(function() {
         $('#popup').popup({
           url:'http://www1.pennasol.su:8080/'
-          , background: '#5e87b0'
-          , size:[720,480]
-          , position:'left'
+          , position:'top-right'
+          , checkStatus:true
           , label:'Подбор масла'
           });
       });

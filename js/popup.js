@@ -10,10 +10,6 @@
 
     Popup.prototype.label = 'Popup';
 
-    Popup.prototype.ctl = ['^', 'X'];
-
-    Popup.prototype.size = [320, 32, 320];
-
     Popup.prototype.checkStatus = false;
 
     Popup.prototype.status = true;
@@ -21,23 +17,20 @@
     Popup.prototype.open = false;
 
     function Popup(options, elem) {
-      var _ref, _ref1, _ref2, _ref3, _ref4;
+      var _ref, _ref1, _ref2, _ref3;
       this.options = options;
       this.elem = elem;
-      if (((_ref = this.options) != null ? _ref.position : void 0) === 'right') {
-        this;
-
+      $(this.elem).hide();
+      if ((_ref = this.options) != null ? _ref.position : void 0) {
+        this.position = this.options.position;
       }
       if ((_ref1 = this.options) != null ? _ref1.label : void 0) {
         this.label = this.options.label;
       }
-      if ((_ref2 = this.options) != null ? _ref2.size : void 0) {
-        this.size = this.options.size;
-      }
-      if ((_ref3 = this.options) != null ? _ref3.url : void 0) {
+      if ((_ref2 = this.options) != null ? _ref2.url : void 0) {
         this.url = this.options.url;
       }
-      if ((_ref4 = this.options) != null ? _ref4.checkStatus : void 0) {
+      if ((_ref3 = this.options) != null ? _ref3.checkStatus : void 0) {
         this.checkStatus = this.options.checkStatus;
       }
       if (this.checkStatus) {
@@ -48,8 +41,14 @@
     }
 
     Popup.prototype.display = function() {
-      $(this.elem).html(["<h4>" + this.label, "<span class='hide'></span>", "</h4>", "<div id='workspace'>", '<iframe frameborder=0 src="' + this.url + '">', '</iframe>', "</div>"].join(''));
-      $(this.elem).addClass('rotate');
+      var _ref;
+      if ((_ref = this.position) === 'bottom-right' || _ref === 'bottom-left') {
+        $(this.elem).html(["<h4>" + this.label, "<span class='hide'></span>", "</h4>", "<div id='workspace'>", '<iframe frameborder=0 src="' + this.url + '">', '</iframe>', "</div>"].join(''));
+      } else {
+        $(this.elem).html(["<div id='workspace'>", '<iframe frameborder=0 src="' + this.url + '">', '</iframe>', "<h4>" + this.label, "<span class='hide'></span>", "</h4>", "</div>"].join(''));
+      }
+      $(this.elem).addClass('popup-' + this.position);
+      $(this.elem).show();
       return this.events();
     };
 
@@ -59,37 +58,56 @@
       img = document.body.appendChild(document.createElement("img"));
       img.onload = function() {
         self.status = true;
-        return self.displayControl();
+        return self.display();
       };
       img.onerror = function() {
         self.status = false;
-        return $(this.elem).hide();
+        return $(self.elem).hide();
       };
       return img.src = self.url + "/status.gif";
     };
 
     Popup.prototype.events = function() {
-      var h4, self, span;
+      var duration, h4, self, span;
       self = this;
       h4 = $(this.elem).find('h4');
       span = $(this.elem).find('h4 span');
+      duration = 400;
       return h4.on('click', function(e) {
-        if ($(self.elem).hasClass('rotate')) {
-          $(self.elem).toggle(200, function() {
-            $(self.elem).removeClass('rotate');
-            $(self.elem).addClass('normal');
-            return $(self.elem).toggle(200, function() {
-              return span.show();
-            });
+        var options, _ref, _ref1;
+        if (!self.open) {
+          if ((_ref = self.position) === 'bottom-right' || _ref === 'bottom-left') {
+            self.bottom = $(self.elem).css('bottom');
+            options = {
+              bottom: 8
+            };
+          } else {
+            self.top = $(self.elem).css('top');
+            options = {
+              top: 8
+            };
+          }
+          return $(self.elem).animate(options, {
+            done: function() {
+              span.show();
+              return self.open = true;
+            }
           });
-        }
-        if ($(self.elem).hasClass('normal')) {
-          return $(self.elem).toggle(200, function() {
-            $(self.elem).removeClass('normal');
-            $(self.elem).addClass('rotate');
-            return $(self.elem).toggle(200, function() {
-              return span.hide();
-            });
+        } else {
+          span.hide();
+          if ((_ref1 = self.position) === 'bottom-right' || _ref1 === 'bottom-left') {
+            options = {
+              bottom: self.bottom
+            };
+          } else {
+            options = {
+              top: self.top
+            };
+          }
+          return $(self.elem).animate(options, {
+            done: function() {
+              return self.open = false;
+            }
           });
         }
       });

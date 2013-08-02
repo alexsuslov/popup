@@ -1,16 +1,3 @@
-.normal {
-  left: 4px;
-  top: 100px; }
-
-.rotate {
-  left: -364px;
-  top: 20px;
-  -webkit-transform: rotateZ(90deg);
-  -moz-transform: rotateZ(90deg);
-  -o-transform: rotateZ(90deg);
-  -ms-transform: rotateZ(90deg);
-  transform: rotateZ(90deg); }
-
 #popup {
   position: fixed;
   display: block;
@@ -24,11 +11,12 @@
   -khtml-box-shadow: 0 0 4px #bfbfbf;
   -moz-box-shadow: 0 0 4px #bfbfbf;
   box-shadow: 0 0 4px #bfbfbf;
-  width: 320px;
-  height: 480px; }
+  width: 480px;
+  height: 540px;
+  padding: 4px; }
   #popup h4 {
     color: white;
-    margin: 4px;
+    margin: 0px;
     padding: 8px;
     background-color: #5e87b0;
     -moz-border-radius: 8px;
@@ -61,9 +49,9 @@
       margin-right: -4px;
       padding: 4px; }
   #popup iframe {
-    margin: 4px;
-    width: 310px;
-    height: 425px;
+    margin-top: 4px;
+    width: 478px;
+    height: 492px;
     -moz-border-radius: 8px;
     -webkit-border-radius: 8px;
     -khtml-border-radius: 8px;
@@ -73,3 +61,15 @@
     -khtml-box-shadow: 0 0 4px #bfbfbf;
     -moz-box-shadow: 0 0 4px #bfbfbf;
     box-shadow: 0 0 4px #bfbfbf; }
+
+.popup-bottom-left, .popup-top-left {
+  left: 16px; }
+
+.popup-bottom-right, .popup-top-right {
+  right: 16px; }
+
+.popup-top-left, .popup-top-right {
+  top: -506px; }
+
+.popup-bottom-left, .popup-bottom-right {
+  bottom: -506px; }
