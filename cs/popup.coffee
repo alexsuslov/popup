@@ -21,27 +21,15 @@ class Popup
       @display()
 
   display:()->
-    if @position in ['bottom-right',  'bottom-left']
-      $(@elem).html [
-        "<h4 class='btn'>"
-        "<span class='hide'></span> &nbsp;"
-        @label+ "</h4>"
-        "<div id='workspace'>"
-        '<iframe frameborder=0 src="' + @url + '">'
-        '</iframe>'
-        "</div>"
-        ].join('')
-    else
-      $(@elem).html [
-        "<div id='workspace'>"
-        '<iframe frameborder=0 src="' + @url + '">'
-        '</iframe>'
-        "<h4 class='btn'>"
-        "<span class='hide'></span> &nbsp;"
-        @label + "</h4>"
-        "</div>"
-        ].join('')
+    $(@elem).hide()
+    $(@elem).html [
+      "<h4 class='btn'>"+  @label
+      "<span></span>"
+      "</h4>"
+      '<iframe frameborder=0 src="' + @url + '"></iframe>'
+      ].join('')
     $(@elem).addClass 'popup-' + @position
+    $(@elem).addClass 'popupClose'
     $(@elem).show()
     @events()
 
@@ -64,27 +52,13 @@ class Popup
     duration = 400
     h4.on 'click',(e)->
       unless self.open
-        if self.position in ['bottom-right',  'bottom-left']
-          self.bottom = $(self.elem).css 'bottom'
-          options =
-            bottom:8
-        else
-          self.top = $(self.elem).css 'top'
-          options =
-            top:8
-
-        $(self.elem).animate options, done:()->
-            # span.show()
-            self.open = true
+        $(self.elem).removeClass 'popupClose'
+        $(self.elem).addClass 'popupOpen'
+        self.open = true
       else
-        # span.hide()
-        if self.position in ['bottom-right',  'bottom-left']
-          options =
-            bottom:self.bottom
-        else
-          options = top:self.top
-        $(self.elem).animate options, done:()->
-            self.open = false
+        $(self.elem).removeClass 'popupOpen'
+        $(self.elem).addClass 'popupClose'
+        self.open = false
 
 
 

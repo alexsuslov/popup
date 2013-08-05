@@ -41,13 +41,10 @@
     }
 
     Popup.prototype.display = function() {
-      var _ref;
-      if ((_ref = this.position) === 'bottom-right' || _ref === 'bottom-left') {
-        $(this.elem).html(["<h4 class='btn'>", "<span class='hide'></span> &nbsp;", this.label + "</h4>", "<div id='workspace'>", '<iframe frameborder=0 src="' + this.url + '">', '</iframe>', "</div>"].join(''));
-      } else {
-        $(this.elem).html(["<div id='workspace'>", '<iframe frameborder=0 src="' + this.url + '">', '</iframe>', "<h4 class='btn'>", "<span class='hide'></span> &nbsp;", this.label + "</h4>", "</div>"].join(''));
-      }
+      $(this.elem).hide();
+      $(this.elem).html(["<h4 class='btn'>" + this.label, "<span></span>", "</h4>", '<iframe frameborder=0 src="' + this.url + '"></iframe>'].join(''));
       $(this.elem).addClass('popup-' + this.position);
+      $(this.elem).addClass('popupClose');
       $(this.elem).show();
       return this.events();
     };
@@ -75,39 +72,14 @@
       iframe = $(this.elem).find('iframe');
       duration = 400;
       return h4.on('click', function(e) {
-        var options, _ref, _ref1;
         if (!self.open) {
-          if ((_ref = self.position) === 'bottom-right' || _ref === 'bottom-left') {
-            self.bottom = $(self.elem).css('bottom');
-            options = {
-              bottom: 8
-            };
-          } else {
-            self.top = $(self.elem).css('top');
-            options = {
-              top: 8
-            };
-          }
-          return $(self.elem).animate(options, {
-            done: function() {
-              return self.open = true;
-            }
-          });
+          $(self.elem).removeClass('popupClose');
+          $(self.elem).addClass('popupOpen');
+          return self.open = true;
         } else {
-          if ((_ref1 = self.position) === 'bottom-right' || _ref1 === 'bottom-left') {
-            options = {
-              bottom: self.bottom
-            };
-          } else {
-            options = {
-              top: self.top
-            };
-          }
-          return $(self.elem).animate(options, {
-            done: function() {
-              return self.open = false;
-            }
-          });
+          $(self.elem).removeClass('popupOpen');
+          $(self.elem).addClass('popupClose');
+          return self.open = false;
         }
       });
     };

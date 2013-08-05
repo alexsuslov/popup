@@ -1,62 +1,88 @@
 @import "mixin";
 $dialogHeight:540px;
 $dialogWidth:480px;
+$btnBack:#3482bc;
 
 // /* #### Tablets Portrait or Landscape #### */
-// @media screen and (max-width: 1024px){
-//   #popup{
-//     width: 100%;
-//     h4{
-//       margin: 0px;
-//       padding: 8px;
-//     }
-//     iframe{
-//       width: 100%;
-//       height: $dialogHeight;
-//       @include corner(8px);
-//       @include shadow(#bfbfbf);
-//     }
-//   }
-// }
-
+@media screen and (max-width: 1024px){
+.popupClose{
+  iframe{
+    display:none;
+  }
+  h4 span:before{
+      content: "\e096";
+  }
+}
+.popupOpen{
+  iframe{
+    margin-top:4px;
+    width: 100%;
+    height: $dialogHeight - 48 ;
+  }
+  h4 span:before{
+      content: "\e097";
+  }
+}
+#popup{
+  h4{
+      margin: 0px;
+      padding: 8px;
+      span:before{
+        float: right;
+        font-family: 'Glyphicons Halflings';
+        font-style: normal;
+        font-weight: normal;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+      }
+    }
+  }
+}
 /* #### Desktops #### */
 @media screen and (min-width: 1024px){
+  .popupClose{
+    width: $dialogWidth ;
+    height: 38px;
+    h4 span:before{
+        content: "\e096";
+      }
+    iframe{
+      display:none;
+    }
+  }
+  .popupOpen{
+      width: $dialogWidth ;
+      height: $dialogHeight;
+      h4 span:before{
+        content: "\e097";
+      }
+      iframe{
+        margin-top: 4px;
+        width: $dialogWidth - 2;
+        height: $dialogHeight - 48 ;
+        @include corner(8px);
+        @include shadow(#bfbfbf);
+      }
+    }
   #popup{
     position: fixed;
     display: block;
     background-color: #fff;
     @include corner(8px);
     @include shadow(#bfbfbf);
-    width: $dialogWidth ;
-    height: $dialogHeight;
     padding:4px;
     h4{
-      // color: white;
       margin: 0px;
       padding: 8px;
       span:before{
-        // display:none;
+        float: right;
         font-family: 'Glyphicons Halflings';
         font-style: normal;
         font-weight: normal;
         line-height: 1;
         -webkit-font-smoothing: antialiased;
-        content: "\e012";
-        // float: right;
-        // @include corner(8px);
-        // @include shadow(#bfbfbf);
-        // margin-top: -4px;
-        // margin-right: -4px;
-        // padding: 4px;
+        // .glyphicon-resize-small:before{content:"\e097"}
       }
-    }
-    iframe{
-      margin-top: 4px;
-      width: $dialogWidth - 2;
-      height: $dialogHeight - 48 ;
-      @include corner(8px);
-      @include shadow(#bfbfbf);
-
     }
   }
 
@@ -64,8 +90,9 @@ $dialogWidth:480px;
   .popup-bottom-left, .popup-top-left{ left: 16px;}
   .popup-bottom-right, .popup-top-right{ right: 16px;}
 
-  .popup-top-left, .popup-top-right{  top: -($dialogHeight - 34);}
-  .popup-bottom-left, .popup-bottom-right{  bottom: -($dialogHeight - 34);}
+  .popup-top-left, .popup-top-right{  top: 0;}
+  // .popup-top-left, .popup-top-right{  top: -($dialogHeight - 34);}
+  .popup-bottom-left, .popup-bottom-right{  bottom: 0;}
 }
 .btn {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -75,7 +102,7 @@ $dialogWidth:480px;
   font-size: 14px;
   line-height: 20px;
   color: #333333;
-  text-align: center;
+  // text-align: center;
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
   vertical-align: middle;
   cursor: pointer;
